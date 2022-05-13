@@ -12,13 +12,13 @@
 
 ;;; Code:
 
-(defvar corfu-english-helper-active-p nil
+(defvar-local corfu-english-helper-active-p nil
   "The status of corfu-english-helper plugins.
 Default is disable.")
 
-(defvar corfu-english-helper-last-showing-candidate-max-index nil)
-(defvar corfu-english-helper-current-input nil)
-(defvar corfu-english-helper-translation-max-width nil)
+(defvar-local corfu-english-helper-last-showing-candidate-max-index nil)
+(defvar-local corfu-english-helper-current-input nil)
+(defvar-local corfu-english-helper-translation-max-width nil)
 
 (defun corfu-english-helper-translation-max-width ()
   (let ((showing-candidate-max-index (min (+ corfu-count corfu--scroll) corfu--total))
@@ -92,8 +92,8 @@ Default is disable.")
         (setq-local corfu-auto corfu-english-helper--corfu-auto)
         (setq-local corfu-auto-prefix corfu-english-helper--corfu-auto-prefix)
 
-        (setq completion-at-point-functions (remove 'corfu-english-helper-search completion-at-point-functions))
-        (setq corfu-english-helper-active-p nil)
+        (setq-local completion-at-point-functions (remove 'corfu-english-helper-search completion-at-point-functions))
+        (setq-local corfu-english-helper-active-p nil)
         (message "Corfu english helper has disable."))
 
     ;; Save options.
@@ -107,8 +107,8 @@ Default is disable.")
     ;; We need call `(setq-local corfu-auto t)' before corfu-mode turn on.
     (corfu-mode 1)
 
-    (add-to-list 'completion-at-point-functions #'corfu-english-helper-search)
-    (setq corfu-english-helper-active-p t)
+    (add-hook 'completion-at-point-functions #'corfu-english-helper-search nil t)
+    (setq-local corfu-english-helper-active-p t)
     (message "Corfu english helper has enable.")))
 
 (provide 'corfu-english-helper)
