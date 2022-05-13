@@ -1,24 +1,29 @@
-# What's this ?
-This is english helper extension that base on Emacs corfu.
+## What is corfu-english-helper ?
+corfu-english-helper is english writing assistant, help me complete English word.
+
+This plugin base on fantastic completion framework [Corfu](https://github.com/minad/corfu)
 
 <img src="./screenshot.png" width="400">
 
-# Install
-1. Copy file [corfu-english-helper.el](corfu-english-helper.el) and [corfu-english-helper-data.el](corfu-english-helper-data.el) to directory ~/elisp/
+## Install
+1. Download corfu-english-helper:
 
-2. And set in your ~/.emacs like this:
-```Elisp
-(add-to-list 'load-path (expand-file-name "~/elisp"))
+```Bash
+git clone --depth=1 -b master https://github.com/manateelazycat/corfu-english-helper.git ~/.emacs.d/site-lisp/corfu-english-helper/
 ```
 
-3. And the following to your ~/.emacs startup file.
+2. Add corfu-english-helper to ```load-path```:
 ```Elisp
+(add-to-list 'load-path "~/.emacs.d/site-lisp/corfu-english-helper/")
 (require 'corfu-english-helper)
 ```
 
-4. Execute command `toggle-corfu-english-helper' to write english on the fly!
+## Usage
+* ```toggle-corfu-english-helper```: toggle on english helper, write english on the fly.
+* ```corfu-english-helper-search```: popup english helper manually
 
-# Customize your dict.
+
+## Customize your own dictionary.
 Default english dictionary is generate from stardict KDict dictionary with below command
 
 ```Shell
