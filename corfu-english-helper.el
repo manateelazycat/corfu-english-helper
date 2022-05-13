@@ -6,8 +6,8 @@
 ;;
 
 ;;; Require
-(require 'cl)
-(require 'cl-lib)
+(require 'cl-seq)
+(require 'corfu)
 (require 'corfu-english-helper-data)
 
 ;;; Code:
@@ -40,11 +40,11 @@ Default is disable.")
 (defun corfu-english-helper-annotation (candidate)
   (let* ((translation (get-text-property 0 :initials candidate))
          (translation-width (string-width translation))
-         (corfu--candidates-length (length corfu--candidates))
          (max-translation-width (corfu-english-helper-translation-max-width))
          (blank-width (- max-translation-width translation-width)))
-    (format "    %s" (concat translation (make-string (max 0  (- max-translation-width translation-width)) ?\s)))))
+    (format "    %s" (concat translation (make-string blank-width ?\s)))))
 
+;;;###autoload
 (defun corfu-english-helper-search (&optional interactive)
   (interactive (list t))
   (if interactive
@@ -82,6 +82,7 @@ Default is disable.")
   (let ((case-fold-search nil))
     (string-match-p "\\`[A-Z][a-z]*\\'" str)))
 
+;;;###autoload
 (defun toggle-corfu-english-helper ()
   "Toggle corfu english helper."
   (interactive)
