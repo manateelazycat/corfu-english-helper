@@ -62,10 +62,25 @@ Default is disable.")
   (interactive)
   (if corfu-english-helper-active-p
       (progn
+        ;; Restore options.
+        (setq-local corfu-auto corfu-english-helper--corfu-auto)
+        (setq-local corfu-auto-prefix corfu-english-helper--corfu-auto-prefix)
+        
         (setq completion-at-point-functions (remove 'corfu-english-helper-search completion-at-point-functions))
         (setq corfu-english-helper-active-p nil)
         (message "Corfu english helper has disable."))
+    
+    ;; Save options.
+    (setq-local corfu-english-helper--corfu-auto corfu-auto)
+    (setq-local corfu-english-helper--corfu-auto-prefix corfu-auto-prefix)
+    
+    ;; Turn on `corfu-auto' and adjust `corfu-auto-prefix' to 0.
+    (setq-local corfu-auto t)
+    (setq-local corfu-auto-prefix 0)
+    
+    ;; We need call `(setq-local corfu-auto t)' before corfu-mode turn on.
     (corfu-mode 1)
+    
     (add-to-list 'completion-at-point-functions #'corfu-english-helper-search)
     (setq corfu-english-helper-active-p t)
     (message "Corfu english helper has enable.")))
