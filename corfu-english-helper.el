@@ -85,6 +85,6 @@ Default is disable.")
     (setq corfu-english-helper-active-p t)
     (message "Corfu english helper has enable.")))
 
-(provide 'capf-english-helper)
+(provide 'corfu-english-helper)
 
 ;;; corfu-english-helper.el ends here
