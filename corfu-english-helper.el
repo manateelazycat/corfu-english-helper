@@ -1,4 +1,4 @@
-;;; capf-english-helper.el --- English helper with capf interface
+;;; corfu-english-helper.el --- English helper with corfu interface
 
 ;;; Commentary:
 ;;
@@ -58,7 +58,7 @@ Default is disable.")
     (string-match-p "\\`[A-Z][a-z]*\\'" str)))
 
 (defun toggle-corfu-english-helper ()
-  "Toggle company english helper."
+  "Toggle corfu english helper."
   (interactive)
   (if corfu-english-helper-active-p
       (progn
