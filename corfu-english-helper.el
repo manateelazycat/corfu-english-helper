@@ -17,24 +17,24 @@
 Default is disable.")
 
 (defvar-local corfu-english-helper-last-showing-candidate-max-index nil)
-(defvar-local corfu-english-helper-current-input nil)
+(defvar-local corfu-english-helper-last-input nil)
 (defvar-local corfu-english-helper-translation-max-width nil)
 
 (defun corfu-english-helper-translation-max-width ()
   (let ((showing-candidate-max-index (min (+ corfu-count corfu--scroll) corfu--total))
         (showing-candidate-min-index corfu--scroll))
-    (if (and (eq corfu-english-helper-current-input corfu--input)
+    (if (and (eq corfu-english-helper-last-input corfu--input)
              (eql showing-candidate-max-index corfu-english-helper-last-showing-candidate-max-index))
         corfu-english-helper-translation-max-width
       (progn
         (setq corfu-english-helper-last-showing-candidate-max-index showing-candidate-max-index)
-        (setq corfu-english-helper-current-input corfu--input)
-        (setq showing-candidates (butlast (nthcdr showing-candidate-min-index corfu--candidates) (- corfu--total showing-candidate-max-index)))
+        (setq corfu-english-helper-last-input corfu--input)
+        (setq showing-candidates (seq-subseq corfu--candidates showing-candidate-min-index showing-candidate-max-index))
         (setq corfu-english-helper-translation-max-width
               (apply 'max (mapcar (lambda (w)
                                     (string-width (get-text-property
                                                    0
-                                                   :initials (assoc-string (downcase w) corfu-english-helper-completions))))
+                                                   :initials w)))
                                   showing-candidates)))))))
 
 (defun corfu-english-helper-annotation (candidate)
